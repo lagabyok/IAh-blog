@@ -1,0 +1,1 @@
+La inteligencia artificial no es el futuro, es el presente. Mi objetivo es integrar diferentes conocimientos, como la inteligencia artificial, con nuevas tecnologías y mi experiencia previa en otros campos para conectar a la comunidad diversa y aplicar lo que aprendo en soluciones innovadoras con impacto real."
