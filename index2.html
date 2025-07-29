@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAh! - Gabriela Coronel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f0f23 100%);
+        }
+
+        .ai-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .neural-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #64ffda;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
+        }
+
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .glow-effect:hover {
+            box-shadow: 0 0 30px rgba(100, 255, 218, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .typing-animation {
+            overflow: hidden;
+            border-right: 3px solid #64ffda;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #64ffda; }
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { box-shadow: 0 0 20px rgba(100, 255, 218, 0.4); }
+            to { box-shadow: 0 0 40px rgba(100, 255, 218, 0.8); }
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gradient-border {
+            background: linear-gradient(45deg, #64ffda, #667eea, #764ba2);
+            padding: 2px;
+            border-radius: 12px;
+        }
+
+        .gradient-border-inner {
+            background: #1a1a2e;
+            border-radius: 10px;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white min-h-screen">
+    <!-- Neural Network Background -->
+    <div class="neural-network" id="neuralNetwork"></div>
+
+    <!-- Header -->
+    <header class="relative z-10 py-6 px-4">
+        <nav class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="text-4xl font-bold ai-gradient">
+                <i class="fas fa-brain mr-2"></i>
+                IAh!
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="hover:text-cyan-400 transition-colors duration-300">Inicio</a>
+                <a href="#articles" class="hover:text-cyan-400 transition-colors duration-300">Artículos</a>
+                <a href="#news" class="hover:text-cyan-400 transition-colors duration-300">Novedades</a>
+                <a href="#reports" class="hover:text-cyan-400 transition-colors duration-300">Reportes</a>
+                <a href="#talks" class="hover:text-cyan-400 transition-colors duration-300">Charlas</a>
+                <a href="#projects" class="hover:text-cyan-400 transition-colors duration-300">Proyectos</a>
+                <a href="#tools" class="hover:text-cyan-400 transition-colors duration-300">Herramientas</a>
+                <a href="#about" class="hover:text-cyan-400 transition-colors duration-300">Acerca</a>
+                <a href="#footer" class="hover:text-cyan-400 transition-colors duration-300">Contacto</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menuBtn" class="text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative z-10 py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 scroll-reveal">
+                Bienvenidos al
+                <span class="ai-gradient">Futuro de la IA</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90 typing-animation scroll-reveal">
+                Explorando el mundo tecnologico a traves de la inteligencia artificial 
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center scroll-reveal">
+                <button onclick="document.getElementById('articles').scrollIntoView({behavior: 'smooth'})" class="glow-effect bg-gradient-to-r from-cyan-500 to-blue-500 px-8 py-4 rounded-full font-semibold hover:from-cyan-400 hover:to-blue-400 transition-all duration-300">
+                    <i class="fas fa-rocket mr-2"></i>
+                    Explorar Artículos
+                </button>
+                <button onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})" class="border-2 border-cyan-400 px-8 py-4 rounded-full font-semibold hover:bg-cyan-400 hover:text-gray-900 transition-all duration-300">
+                    <i class="fas fa-user mr-2"></i>
+                    Conoce más
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section id="articles" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 scroll-reveal">
+                <span class="ai-gradient">Últimos Artículos</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Article 1: IA en LATAM -->
+                 <article class="gradient-border card-hover scroll-reveal">
+                    <div class="gradient-border-inner p-8">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-globe-americas text-white"></i>
+                            </div>
+                            <div>
+                                <span class="text-cyan-400 text-sm font-semibold">TENDENCIAS</span>
+                                <p class="text-gray-300 text-sm">15 Julio 2025</p>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-2xl font-bold mb-4 hover:text-cyan-400 transition-colors">
+                            La Revolución de la IA en Latinoamérica: Oportunidades y Desafíos
+                        </h3>
+                        
+                        <p class="text-gray-300 mb-6 leading-relaxed">
+                            Latinoamérica está experimentando una transformación digital sin precedentes. Desde startups en México hasta empresas consolidadas en Brasil y Argentina, la inteligencia artificial está redefiniendo industrias enteras. Exploramos cómo países como Colombia, Chile y Uruguay están liderando la adopción de IA en sectores como fintech, agricultura de precisión y salud digital.
+                        </p>
+                        
+                        <p class="text-gray-300 mb-6 leading-relaxed article-content" id="article1-content" style="display: none;">
+                            Los casos de éxito incluyen aplicaciones de machine learning para la predicción de cultivos en zonas rurales, chatbots especializados en telemedicina que están democratizando el acceso a la salud, y algoritmos de análisis financiero que están revolucionando los microcréditos para pequeños emprendedores.
+                        </p>
+                        
+                        <div class="article-content" id="article1-full" style="display: none;">
+                            <p class="text-gray-300 mb-6 leading-relaxed">
+                                Argentina se posiciona como líder regional en investigación de IA, con universidades como la UBA y el ITBA desarrollando algoritmos innovadores. Brasil impulsa la IA en el agronegocio, utilizando drones inteligentes y análisis predictivo para optimizar cosechas. México destaca en fintech, con startups que usan IA para evaluar riesgos crediticios en poblaciones no bancarizadas.
+                            </p>
+                            
+                            <p class="text-gray-300 mb-6 leading-relaxed">
+                                Chile lidera en minería inteligente, implementando sistemas de IA para optimizar la extracción y reducir el impacto ambiental. Colombia innova en logística urbana con algoritmos que optimizan rutas de entrega en ciudades complejas como Bogotá y Medellín.
+                            </p>
+                            
+                            <p class="text-gray-300 mb-6 leading-relaxed">
+                                Los desafíos incluyen la brecha digital, la necesidad de regulación ética, y la formación de talento especializado. Sin embargo, las oportunidades son inmensas: se estima que la IA podría agregar $5.4 billones al PIB de la región para 2030.
+                            </p>
+                            
+                            <p class="text-gray-300 mb-6 leading-relaxed">
+                                La colaboración regional es clave. Iniciativas como el Observatorio de IA de América Latina están creando estándares comunes y promoviendo el intercambio de conocimiento entre países. El futuro de la IA en LATAM es brillante, y estamos apenas comenzando a explorar su potencial transformador.
+                            </p>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm">#LATAM</span>
+                            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm">#Innovation</span>
+                            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">#MachineLearning</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <i class="fas fa-clock mr-2"></i>
+                                <span>8 min de lectura</span>
+                            </div>
+                            <button class="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center read-more-btn" data-article="1">
+                                Leer más
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2: Automatizaciones de IA -->
+                <article class="gradient-border card-hover scroll-reveal">
+                    <div class="gradient-border-inner p-8">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-cogs text-white"></i>
+                            </div>
+                            <div>
+                                <span class="text-purple-400 text-sm font-semibold">PRODUCTIVIDAD</span>
+                                <p class="text-gray-300 text-sm">25 Julio 2025</p>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-2xl font-bold mb-4 hover:text-cyan-400 transition-colors">
+                            Automatizaciones de IA que Revolucionan la Productividad Empresarial
+                        </h3>
+                        
+                        <p class="text-gray-300 mb-6 leading-relaxed">
+                            La automatización inteligente está transformando la forma en que trabajamos. Desde asistentes virtuales que gestionan calendarios complejos hasta sistemas de análisis predictivo que optimizan la cadena de suministro, la IA está eliminando tareas repetitivas y potenciando la creatividad humana.
+                        </p>
+                        
+                        <p class="text-gray-300 mb-6 leading-relaxed article-content" id="article2-content" style="display: none;">
+                            Herramientas como GPT-4 para la generación de contenido, sistemas de automatización de marketing que personalizan experiencias en tiempo real, y plataformas de análisis de datos que convierten información compleja en insights accionables están redefiniendo el concepto de eficiencia empresarial. Las empresas que adoptan estas tecnologías reportan aumentos del 40% en productividad.
+                        </p>
+                        
+                        <div class="article-content" id="article2-full" style="display: none;">
+                            <p class="text-gray-300 mb-6 leading-relaxed">
+                                <strong>Automatización de Procesos Cognitivos:</strong> Los RPA (Robotic Process Automation) evolucionaron hacia IPA (Intelligent Process Automation). Sistemas que no solo ejecutan tareas, sino que aprenden, adaptan y toman decisiones. Desde la clasificación automática de documentos hasta la generación de reportes financieros complejos.
+                            </p>
+                            
+                            <p class="text-gray-300 mb-6 leading-relaxed">
+                                <strong>Asistentes de IA Especializados:</strong> Más allá de los chatbots básicos, emergen asistentes que comprenden contexto empresarial específico. Asistentes legales que analizan contratos, asistentes médicos que sugieren diagnósticos, y asistentes de desarrollo que escriben y optimizan código.
+                            </p>
+                            
+                            <p class="text-gray-300 mb-6 leading-relaxed">
+                                <strong>Análisis Predictivo en Tiempo Real:</strong> Algoritmos que anticipan demanda, predicen fallas de equipos, y optimizan inventarios automáticamente. La IA no solo reacciona, sino que se anticipa, permitiendo decisiones proactivas que transforman la competitividad empresarial.
+                            </p>
+                            
+                            <p class="text-gray-300 mb-6 leading-relaxed">
+                                <strong>Personalización Masiva:</strong> Sistemas que crean experiencias únicas para millones de usuarios simultáneamente. Desde recomendaciones de productos hasta contenido educativo adaptativo, la IA está democratizando la personalización que antes era exclusiva de servicios premium.
+                            </p>
+                            
+                            <p class="text-gray-300 mb-6 leading-relaxed">
+                                El futuro del trabajo no es la sustitución humana, sino la amplificación de capacidades. La IA maneja lo rutinario, liberando a los humanos para la innovación, la creatividad y la resolución de problemas complejos que requieren intuición y empatía.
+                            </p>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">#Automation</span>
+                            <span class="bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-sm">#Productivity</span>
+                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm">#Business</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <i class="fas fa-clock mr-2"></i>
+                                <span>6 min de lectura</span>
+                            </div>
+                            <button class="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center read-more-btn" data-article="2">
+                                Leer más
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section> 
+
+    <!-- Novedades Section -->
+    <section id="news" class="py-20 px-4 bg-black/10">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 scroll-reveal">
+                <span class="ai-gradient">Novedades</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="gradient-border card-hover scroll-reveal">
+                    <div class="gradient-border-inner p-6">
+                        <div class="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-bolt text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">GPT-5 en el Horizonte</h3>
+                        <p class="text-gray-300 text-sm mb-3">
+                            OpenAI ya tiene fecha para su próximo lanzamiento. Planea presentar el modelo de lenguaje GPT-5 a
+                             principios de agosto. Planea ampliarse casi indefinidamente y avanzar la capacidad de razonamiento para manejar cálculos complejos y programación.
+                            Se incrementará exponencialmente la capacidad de gestión de memoria, pasando de los 128,000 
+                            tokens de GPT-4o a más de un millón en GPT-5. Esto permitirá analizar bases de datos enteras de una sola vez, mantener conversaciones e interacciones constantes durante varias semanas o gestionar conjuntos de datos acumulados durante años.
+                        </p>
+                        <span class="text-xs text-cyan-400">Julio 2025</span>
+                    </div>
+                </div>
+                
+                <div class="gradient-border card-hover scroll-reveal">
+                    <div class="gradient-border-inner p-6">
+                        <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-microchip text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">IA en el sector salud: Avances diagnósticos de Microsoft</h3>
+                        <p class="text-gray-300 text-sm mb-3">Microsoft ha presentado el MAI Diagnostic Orchestrator (MAI-DxO), un sistema de IA que, según reportes, logra hasta un 
+                            85,5% de precisión en el diagnóstico de casos médicos complejos.  La herramienta integra múltiples modelos de lenguaje de 
+                            gran tamaño (LLM) para simular un panel virtual de expertos, lo que promete 
+                            reducir los costes de diagnóstico hasta en un 70% y proporcionar 
+                            un acceso más amplio a razonamientos de nivel especialista.</p>
+                        <span class="text-xs text-cyan-400">Julio 2025</span>
+                    </div>
+                </div>
+                
+                <div class="gradient-border card-hover scroll-reveal">
+                    <div class="gradient-border-inner p-6">
+                        <div class="w-12 h-12 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-robot text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">La Computadora de 76 Qubits</h3>
+                        <p class="text-gray-300 text-sm mb-3"> Realizó 2,600 Millones de Años de Cálculos en Solo 4 Minutos! un hito! 
+                             utiliza tecnología basada en la manipulación de la luz y no en circuitos eléctricos tradicionales.
+                        A diferencia de los ordenadores clásicos, que utilizan bits (0 o 1) para procesar información, 
+                        las computadoras cuánticas emplean qubits, que pueden representar simultáneamente
+                         ambos estados gracias a los principios de la mecánica cuántica, como la 
+                         superposición y el entrelazamiento. </p>
+                        <span class="text-xs text-cyan-400">Julio 2025</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Reportes y Visualizaciones Section -->
+<section id="reports" class="py-20 px-4">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 scroll-reveal">
+      <span class="ai-gradient">Reportes y Visualizaciones</span>
+    </h2>
+    
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Card 1 -->
+      <div class="gradient-border card-hover scroll-reveal">
+        <div class="gradient-border-inner p-8">
+          <div class="flex items-center mb-6">
+            <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mr-4">
+              <i class="fas fa-chart-line text-white text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold">Estado de la IA 2025</h3>
+              <p class="text-gray-400">Análisis completo del mercado</p>
+            </div>
+          </div>
+          <p class="text-gray-300 mb-6">
+            Dashboard interactivo con métricas clave de adopción de IA en empresas latinoamericanas, inversión en startups y tendencias emergentes.
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-cyan-400">Actualizado semanalmente</span>
+            <button id="openDashboardBtn" class="bg-gradient-to-r from-blue-500 to-cyan-500 px-4 py-2 rounded-lg hover:from-blue-400 hover:to-cyan-400 transition-all">
+              Ver Dashboard
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="gradient-border card-hover scroll-reveal relative">
+        <div class="absolute top-3 right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded">
+          Próximamente
+        </div>
+        <div class="gradient-border-inner p-8 opacity-50 pointer-events-none">
+          <div class="flex items-center mb-6">
+            <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mr-4">
+              <i class="fas fa-brain text-white text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold">Mapa de Talento IA</h3>
+              <p class="text-gray-400">Visualización geográfica</p>
+            </div>
+          </div>
+          <p class="text-gray-300 mb-6">
+            Mapa interactivo que muestra la distribución de profesionales de IA, universidades especializadas y hubs tecnológicos en Argentina y la región.
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-cyan-400">Datos en tiempo real</span>
+            <button class="bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-2 rounded-lg">
+              Explorar Mapa
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Dashboard Section -->
+<section id="dashboardSection" class="hidden py-20 px-4">
+  <!-- Aquí va TODO tu contenido del dashboard con métricas, barras, mapa, etc. -->
+
+
+    <!-- Contenido del dashboard -->
+
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+      Estado de la IA 2025
+    </h2>
+
+    <!-- Métricas -->
+    <!-- Métricas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <div class="bg-gradient-to-tr from-blue-500/10 to-cyan-500/10 rounded-xl p-6 border border-blue-500/20 text-center">
+        <p class="text-3xl font-bold text-blue-400">1,247</p>
+        <p class="text-sm text-gray-400">Startups de IA</p>
+        <span class="text-xs text-green-400 font-semibold">+23% vs 2023</span>
+      </div>
+      <div class="bg-gradient-to-tr from-green-500/10 to-emerald-500/10 rounded-xl p-6 border border-green-500/20 text-center">
+        <p class="text-3xl font-bold text-green-400">$2.8B</p>
+        <p class="text-sm text-gray-400">Inversión Total</p>
+        <span class="text-xs text-green-400 font-semibold">+45% vs 2023</span>
+      </div>
+      <div class="bg-gradient-to-tr from-yellow-500/10 to-orange-500/10 rounded-xl p-6 border border-yellow-500/20 text-center">
+        <p class="text-3xl font-bold text-yellow-400">89,432</p>
+        <p class="text-sm text-gray-400">Empleos en IA</p>
+        <span class="text-xs text-green-400 font-semibold">+67% vs 2023</span>
+      </div>
+      <div class="bg-gradient-to-tr from-pink-500/10 to-rose-500/10 rounded-xl p-6 border border-pink-500/20 text-center">
+        <p class="text-3xl font-bold text-pink-400">72%</p>
+        <p class="text-sm text-gray-400">Adopción Empresarial</p>
+        <span class="text-xs text-green-400 font-semibold">+18% vs 2023</span>
+      </div>
+    </div>
+
+    <!-- Gráfico de Adopción por País -->
+    <div class="bg-gradient-to-tr from-purple-500/10 to-pink-500/10 rounded-xl p-8 border border-purple-500/20 mb-12">
+      <h3 class="text-lg font-semibold text-purple-400 mb-6">Adopción de IA por País (LATAM 2024)</h3>
+      <div class="space-y-3">
+        <div class="flex items-center">
+          <span class="w-24 text-gray-300">Brasil</span>
+          <div class="flex-1 bg-purple-500/20 rounded-full h-4 mx-2">
+            <div class="bg-purple-500 h-4 rounded-full" style="width: 72%"></div>
+          </div>
+          <span class="text-purple-400 font-bold">72%</span>
+        </div>
+        <div class="flex items-center">
+          <span class="w-24 text-gray-300">Argentina</span>
+          <div class="flex-1 bg-purple-500/20 rounded-full h-4 mx-2">
+            <div class="bg-purple-500 h-4 rounded-full" style="width: 68%"></div>
+          </div>
+          <span class="text-purple-400 font-bold">68%</span>
+        </div>
+        <div class="flex items-center">
+          <span class="w-24 text-gray-300">México</span>
+          <div class="flex-1 bg-purple-500/20 rounded-full h-4 mx-2">
+            <div class="bg-purple-500 h-4 rounded-full" style="width: 65%"></div>
+          </div>
+          <span class="text-purple-400 font-bold">65%</span>
+        </div>
+        <div class="flex items-center">
+          <span class="w-24 text-gray-300">Chile</span>
+          <div class="flex-1 bg-purple-500/20 rounded-full h-4 mx-2">
+            <div class="bg-purple-500 h-4 rounded-full" style="width: 61%"></div>
+          </div>
+          <span class="text-purple-400 font-bold">61%</span>
+        </div>
+        <div class="flex items-center">
+          <span class="w-24 text-gray-300">Colombia</span>
+          <div class="flex-1 bg-purple-500/20 rounded-full h-4 mx-2">
+            <div class="bg-purple-500 h-4 rounded-full" style="width: 58%"></div>
+          </div>
+          <span class="text-purple-400 font-bold">58%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mapa de Inversiones -->
+    <div class="bg-gradient-to-tr from-emerald-500/10 to-green-500/10 rounded-xl p-8 border border-green-500/20 mb-12">
+      <h3 class="text-lg font-semibold text-emerald-400 mb-6">Mapa de Inversiones en IA 2024</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-emerald-500/20 rounded-lg p-6 text-center">
+          <span class="block text-lg font-bold text-emerald-400">Brasil</span>
+          <span class="text-2xl font-bold text-emerald-300">$1.2B</span>
+        </div>
+        <div class="bg-emerald-500/20 rounded-lg p-6 text-center">
+          <span class="block text-lg font-bold text-emerald-400">Argentina</span>
+          <span class="text-2xl font-bold text-emerald-300">$680M</span>
+        </div>
+        <div class="bg-emerald-500/20 rounded-lg p-6 text-center">
+          <span class="block text-lg font-bold text-emerald-400">México</span>
+          <span class="text-2xl font-bold text-emerald-300">$520M</span>
+        </div>
+        <div class="bg-emerald-500/20 rounded-lg p-6 text-center">
+          <span class="block text-lg font-bold text-emerald-400">Chile</span>
+          <span class="text-2xl font-bold text-emerald-300">$340M</span>
+        </div>
+        <div class="bg-emerald-500/20 rounded-lg p-6 text-center">
+          <span class="block text-lg font-bold text-emerald-400">Colombia</span>
+          <span class="text-2xl font-bold text-emerald-300">$280M</span>
+        </div>
+        <div class="bg-emerald-500/20 rounded-lg p-6 text-center">
+          <span class="block text-lg font-bold text-emerald-400">Otros</span>
+          <span class="text-2xl font-bold text-emerald-300">$180M</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tendencias de Búsqueda -->
+    <div class="bg-gradient-to-tr from-yellow-500/10 to-orange-500/10 rounded-xl p-8 border border-yellow-500/20">
+      <h3 class="text-lg font-semibold text-yellow-400 mb-6">Tendencias de Búsqueda IA (Google Trends 2024)</h3>
+      <div class="space-y-3">
+        <div class="flex items-center">
+          <span class="w-32 text-gray-300">ChatGPT</span>
+          <div class="flex-1 bg-yellow-500/20 rounded-full h-4 mx-2">
+            <div class="bg-yellow-500 h-4 rounded-full" style="width: 100%"></div>
+          </div>
+          <span class="text-yellow-400 font-bold">100%</span>
+        </div>
+        <div class="flex items-center">
+          <span class="w-30 text-gray-300">Machine Learning</span>
+          <div class="flex-1 bg-yellow-500/20 rounded-full h-4 mx-2">
+            <div class="bg-yellow-500 h-4 rounded-full" style="width: 78%"></div>
+          </div>
+          <span class="text-yellow-400 font-bold">78%</span>
+        </div>
+        <div class="flex items-center">
+          <span class="w-32 text-gray-300">Deep Learning</span>
+          <div class="flex-1 bg-yellow-500/20 rounded-full h-4 mx-2">
+            <div class="bg-yellow-500 h-4 rounded-full" style="width: 65%"></div>
+          </div>
+          <span class="text-yellow-400 font-bold">65%</span>
+        </div>
+        <div class="flex items-center">
+          <span class="w-32 text-gray-300">Computer Vision</span>
+          <div class="flex-1 bg-yellow-500/20 rounded-full h-4 mx-2">
+            <div class="bg-yellow-500 h-4 rounded-full" style="width: 52%"></div>
+          </div>
+          <span class="text-yellow-400 font-bold">52%</span>
+        </div>
+        <div class="flex items-center">
+          <span class="w-32 text-gray-300">NLP</span>
+          <div class="flex-1 bg-yellow-500/20 rounded-full h-4 mx-2">
+            <div class="bg-yellow-500 h-4 rounded-full" style="width: 43%"></div>
+          </div>
+          <span class="text-yellow-400 font-bold">43%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+    <!-- Charlas y Experiencias Section -->
+  <!-- Charlas y Experiencias Section -->
+<section id="talks" class="py-20 px-4 bg-black/10">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 scroll-reveal">
+      <span class="ai-gradient">IAh! oh my podcast</span>
+    </h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Card 1 -->
+      <div class="gradient-border card-hover scroll-reveal relative">
+        <!-- Label Próximamente -->
+        <div class="absolute top-3 right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded">
+          Próximamente
+        </div>
+        <div class="gradient-border-inner p-6 opacity-50 pointer-events-none">
+          <div class="w-12 h-12 bg-gradient-to-r from-red-400 to-pink-500 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-microphone text-white"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-3">Maternidad + Tech</h3>
+          <p class="text-gray-300 text-sm mb-4">Cómo equilibrar ser madre y desarrolladora de IA sin perder la pasión por la innovación</p>
+          <div class="flex items-center text-xs text-gray-400">
+            <i class="fas fa-play mr-2"></i>
+            <span>15 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="gradient-border card-hover scroll-reveal relative">
+        <div class="absolute top-3 right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded">
+          Próximamente
+        </div>
+        <div class="gradient-border-inner p-6 opacity-50 pointer-events-none">
+          <div class="w-12 h-12 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-gamepad text-white"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-3">Gamming be like</h3>
+          <p class="text-gray-300 text-sm mb-4">Mi experiencia desarrollando videojuegos desde cero.</p>
+          <div class="flex items-center text-xs text-gray-400">
+            <i class="fas fa-play mr-2"></i>
+            <span>22 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="gradient-border card-hover scroll-reveal relative">
+        <div class="absolute top-3 right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded">
+          Próximamente
+        </div>
+        <div class="gradient-border-inner p-6 opacity-50 pointer-events-none">
+          <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-music text-white"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-3">IA en la Música</h3>
+          <p class="text-gray-300 text-sm mb-4">Experimentando con algoritmos para composición musical y producción automatizada</p>
+          <div class="flex items-center text-xs text-gray-400">
+            <i class="fas fa-play mr-2"></i>
+            <span>18 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="gradient-border card-hover scroll-reveal relative">
+        <div class="absolute top-3 right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded">
+          Próximamente
+        </div>
+        <div class="gradient-border-inner p-6 opacity-50 pointer-events-none">
+          <div class="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-lightbulb text-white"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-3">Fracasos que Enseñan</h3>
+          <p class="text-gray-300 text-sm mb-4">Proyectos que no funcionaron y las lecciones valiosas que me dejaron</p>
+          <div class="flex items-center text-xs text-gray-400">
+            <i class="fas fa-play mr-2"></i>
+            <span>12 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="gradient-border card-hover scroll-reveal relative">
+        <div class="absolute top-3 right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded">
+          Próximamente
+        </div>
+        <div class="gradient-border-inner p-6 opacity-50 pointer-events-none">
+          <div class="w-12 h-12 bg-gradient-to-r from-purple-400 to-violet-500 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-users text-white"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-3">Comunidad Diversa</h3>
+          <p class="text-gray-300 text-sm mb-4">Construyendo puentes tecnológicos con mirada inclusiva</p>
+          <div class="flex items-center text-xs text-gray-400">
+            <i class="fas fa-play mr-2"></i>
+            <span>25 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="gradient-border card-hover scroll-reveal relative">
+        <div class="absolute top-3 right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded">
+          Próximamente
+        </div>
+        <div class="gradient-border-inner p-6 opacity-50 pointer-events-none">
+          <div class="w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-rocket text-white"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-3">El Futuro es Ahora</h3>
+          <p class="text-gray-300 text-sm mb-4">Reflexiones sobre hacia dónde va la IA y cómo prepararnos para lo que viene</p>
+          <div class="flex items-center text-xs text-gray-400">
+            <i class="fas fa-play mr-2"></i>
+            <span>30 min</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+    <!-- Proyectos Section 
+    <section id="projects" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 scroll-reveal">
+                <span class="ai-gradient">Proyectos Reales Explicados</span>
+            </h2>
+            
+            <div class="space-y-8">
+                <div class="gradient-border card-hover scroll-reveal">
+                    <div class="gradient-border-inner p-8">
+                        <div class="flex flex-col lg:flex-row items-start gap-6">
+                            <div class="w-20 h-20 bg-gradient-to-r from-emerald-400 to-cyan-500 rounded-2xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-seedling text-white text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full text-xs">Machine Learning</span>
+                                    <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs">Computer Vision</span>
+                                    <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-xs">IoT</span>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-4">AgriIA: Predicción de Cultivos</h3>
+                                <p class="text-gray-300 mb-4">Sistema de IA que analiza imágenes satelitales y datos climáticos para predecir rendimiento de cultivos en la Pampa Argentina. Implementado con TensorFlow y deployed en la nube.</p>
+                                <div class="flex items-center gap-4 text-sm text-gray-400">
+                                    <span><i class="fas fa-code mr-2"></i>Python, TensorFlow</span>
+                                    <span><i class="fas fa-clock mr-2"></i>6 semanas</span>
+                                    <span><i class="fas fa-chart-line mr-2"></i>85% precisión</span>
+                                </div>
+                            </div>
+                            <button class="bg-gradient-to-r from-emerald-500 to-cyan-500 px-6 py-3 rounded-lg hover:from-emerald-400 hover:to-cyan-400 transition-all font-semibold">
+                                Ver Tutorial
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gradient-border card-hover scroll-reveal">
+                    <div class="gradient-border-inner p-8">
+                        <div class="flex flex-col lg:flex-row items-start gap-6">
+                            <div class="w-20 h-20 bg-gradient-to-r from-purple-400 to-pink-500 rounded-2xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-comments text-white text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs">NLP</span>
+                                    <span class="bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-xs">Chatbot</span>
+                                    <span class="bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full text-xs">React</span>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-4">ChatBot Médico Multilingüe</h3>
+                                <p class="text-gray-300 mb-4">Asistente virtual para consultas médicas básicas que entiende español, guaraní y quechua. Integra GPT-4 con base de conocimiento médica validada por profesionales.</p>
+                                <div class="flex items-center gap-4 text-sm text-gray-400">
+                                    <span><i class="fas fa-code mr-2"></i>React, Node.js, OpenAI</span>
+                                    <span><i class="fas fa-clock mr-2"></i>4 semanas</span>
+                                    <span><i class="fas fa-users mr-2"></i>1000+ usuarios</span>
+                                </div>
+                            </div>
+                            <button class="bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 rounded-lg hover:from-purple-400 hover:to-pink-400 transition-all font-semibold">
+                                Ver Tutorial
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gradient-border card-hover scroll-reveal">
+                    <div class="gradient-border-inner p-8">
+                        <div class="flex flex-col lg:flex-row items-start gap-6">
+                            <div class="w-20 h-20 bg-gradient-to-r from-orange-400 to-red-500 rounded-2xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-music text-white text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full text-xs">Audio AI</span>
+                                    <span class="bg-red-500/20 text-red-300 px-3 py-1 rounded-full text-xs">Generative</span>
+                                    <span class="bg-yellow-500/20 text-yellow-300 px-3 py-1 rounded-full text-xs">Creative</span>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-4">Compositor IA de Folklore</h3>
+                                <p class="text-gray-300 mb-4">Modelo entrenado con música folklórica argentina que genera melodías originales respetando patrones tradicionales. Combina deep learning con teoría musical.</p>
+                                <div class="flex items-center gap-4 text-sm text-gray-400">
+                                    <span><i class="fas fa-code mr-2"></i>Python, PyTorch, MIDI</span>
+                                    <span><i class="fas fa-clock mr-2"></i>8 semanas</span>
+                                    <span><i class="fas fa-music mr-2"></i>500+ composiciones</span>
+                                </div>
+                            </div>
+                            <button class="bg-gradient-to-r from-orange-500 to-red-500 px-6 py-3 rounded-lg hover:from-orange-400 hover:to-red-400 transition-all font-semibold">
+                                Ver Tutorial
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Herramientas Section -->
+   <!-- Herramientas Section -->
+<section id="tools" class="py-20 px-4 bg-black/10">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl md:text-5xl font-bold text-center mb-8 scroll-reveal">
+      <span class="ai-gradient">Herramientas para que Vos También te Animes</span>
+    </h2>
+    <p class="text-xl text-center text-gray-300 mb-16 scroll-reveal">
+      Todo lo que necesitás para empezar tu journey en IA, sin importar tu background
+    </p>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Principiantes -->
+      <div class="gradient-border card-hover scroll-reveal">
+        <div class="gradient-border-inner p-6">
+          <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-seedling text-white"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-3 text-green-400">Para Principiantes</h3>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li><i class="fas fa-check text-green-400 mr-2"></i>Scratch for AI</li>
+            <li><i class="fas fa-check text-green-400 mr-2"></i>MIT App Inventor</li>
+            <li><i class="fas fa-check text-green-400 mr-2"></i>Teachable Machine</li>
+            <li><i class="fas fa-check text-green-400 mr-2"></i>ChatGPT Playground</li>
+          </ul>
+          <button data-target="principiantes" class="toggle-btn w-full mt-4 bg-green-500 hover:bg-green-400 px-4 py-2 rounded-lg transition-colors text-sm font-semibold">
+            Ver Más
+          </button>
+        </div>
+      </div>
+      
+      <!-- Intermedio -->
+      <div class="gradient-border card-hover scroll-reveal">
+        <div class="gradient-border-inner p-6">
+          <div class="w-12 h-12 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-code text-white"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-3 text-blue-400">Nivel Intermedio</h3>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li><i class="fas fa-check text-blue-400 mr-2"></i>Python + Pandas</li>
+            <li><i class="fas fa-check text-blue-400 mr-2"></i>Jupyter Notebooks</li>
+            <li><i class="fas fa-check text-blue-400 mr-2"></i>Scikit-learn</li>
+            <li><i class="fas fa-check text-blue-400 mr-2"></i>OpenAI API</li>
+          </ul>
+          <button data-target="intermedio" class="toggle-btn w-full mt-4 bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg transition-colors text-sm font-semibold">
+            Ver Más
+          </button>
+        </div>
+      </div>
+      
+      <!-- Avanzado -->
+      <div class="gradient-border card-hover scroll-reveal">
+        <div class="gradient-border-inner p-6">
+          <div class="w-12 h-12 bg-gradient-to-r from-purple-400 to-violet-500 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-brain text-white"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-3 text-purple-400">Nivel Avanzado</h3>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li><i class="fas fa-check text-purple-400 mr-2"></i>TensorFlow/PyTorch</li>
+            <li><i class="fas fa-check text-purple-400 mr-2"></i>Hugging Face</li>
+            <li><i class="fas fa-check text-purple-400 mr-2"></i>Docker + MLOps</li>
+            <li><i class="fas fa-check text-purple-400 mr-2"></i>Custom Models</li>
+          </ul>
+          <button data-target="avanzado" class="toggle-btn w-full mt-4 bg-purple-500 hover:bg-purple-400 px-4 py-2 rounded-lg transition-colors text-sm font-semibold">
+            Ver Más
+          </button>
+        </div>
+      </div>
+      
+      <!-- Recursos Gratis -->
+      <div class="gradient-border card-hover scroll-reveal relative">
+        <div class="absolute top-3 right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded">
+          Próximamente
+        </div>
+        <div class="gradient-border-inner p-6 opacity-50 pointer-events-none">
+          <div class="w-12 h-12 bg-gradient-to-r from-pink-400 to-rose-500 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-gift text-white"></i>
+          </div>
+          <h3 class="text-lg font-bold mb-3 text-pink-400">Recursos Pro</h3>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li><i class="fas fa-check text-pink-400 mr-2"></i>Datasets Curados</li>
+            <li><i class="fas fa-check text-pink-400 mr-2"></i>Templates de Código</li>
+            <li><i class="fas fa-check text-pink-400 mr-2"></i>Guías PDF</li>
+            <li><i class="fas fa-check text-pink-400 mr-2"></i>Comunidad Discord</li>
+          </ul>
+          <button data-target="recursos" class="toggle-btn w-full mt-4 bg-pink-500 hover:bg-pink-400 px-4 py-2 rounded-lg transition-colors text-sm font-semibold">
+            Ver Más
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Sección Principiantes -->
+<section id="principiantes" class="hidden py-20 px-4 bg-black/20 transition-all duration-500">
+  <div class="max-w-4xl mx-auto text-center">
+    <h3 class="text-3xl font-bold mb-6 text-green-400">Recursos para Principiantes</h3>
+    <p class="text-gray-300 mb-6">
+      Comenzá desde cero en inteligencia artificial con estas herramientas sencillas y visuales.
+    </p>
+    <ul class="text-lg text-gray-300 space-y-5 text-left mx-auto max-w-md">
+      <li>
+        <a href="https://scratch.mit.edu/" target="_blank" class="text-green-400 hover:text-green-300 transition-colors">
+          <i class="fas fa-link mr-2"></i>Scratch for AI
+        </a>
+        <p class="text-sm text-gray-400 mt-1">
+          Plataforma visual para aprender programación y conceptos básicos de IA mediante bloques.
+        </p>
+      </li>
+      <li>
+        <a href="https://appinventor.mit.edu/" target="_blank" class="text-green-400 hover:text-green-300 transition-colors">
+          <i class="fas fa-link mr-2"></i>MIT App Inventor
+        </a>
+        <p class="text-sm text-gray-400 mt-1">
+          Herramienta para crear aplicaciones móviles simples arrastrando y soltando componentes.
+        </p>
+      </li>
+      <li>
+        <a href="https://teachablemachine.withgoogle.com/" target="_blank" class="text-green-400 hover:text-green-300 transition-colors">
+          <i class="fas fa-link mr-2"></i>Teachable Machine
+        </a>
+        <p class="text-sm text-gray-400 mt-1">
+          Entrena modelos de IA personalizados usando tu cámara o micrófono sin necesidad de código.
+        </p>
+      </li>
+      <li>
+        <a href="https://platform.openai.com/playground" target="_blank" class="text-green-400 hover:text-green-300 transition-colors">
+          <i class="fas fa-link mr-2"></i>ChatGPT Playground
+        </a>
+        <p class="text-sm text-gray-400 mt-1">
+          Espacio interactivo para probar y ajustar prompts con los modelos de OpenAI en tiempo real.
+        </p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- Sección Intermedio -->
+<section id="intermedio" class="hidden py-20 px-4 bg-black/20 transition-all duration-500">
+  <div class="max-w-4xl mx-auto text-center">
+    <h3 class="text-3xl font-bold mb-6 text-blue-400">Recursos Intermedios</h3>
+    <p class="text-gray-300 mb-6">
+      Aumentá tu nivel técnico aprendiendo librerías clave y entornos de desarrollo.
+    </p>
+    <ul class="text-lg text-gray-300 space-y-5 text-left mx-auto max-w-md">
+      <li>
+        <a href="https://pandas.pydata.org/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">
+          <i class="fas fa-link mr-2"></i>Python + Pandas
+        </a>
+        <p class="text-sm text-gray-400 mt-1">
+          Librería esencial para análisis y manipulación de datos estructurados en Python.
+        </p>
+      </li>
+      <li>
+        <a href="https://jupyter.org/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">
+          <i class="fas fa-link mr-2"></i>Jupyter Notebooks
+        </a>
+        <p class="text-sm text-gray-400 mt-1">
+          Entorno interactivo para combinar código, visualizaciones y texto explicativo.
+        </p>
+      </li>
+      <li>
+        <a href="https://scikit-learn.org/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">
+          <i class="fas fa-link mr-2"></i>Scikit-learn
+        </a>
+        <p class="text-sm text-gray-400 mt-1">
+          Framework de machine learning con algoritmos listos para clasificación, regresión y clustering.
+        </p>
+      </li>
+      <li>
+        <a href="https://platform.openai.com/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">
+          <i class="fas fa-link mr-2"></i>OpenAI API
+        </a>
+        <p class="text-sm text-gray-400 mt-1">
+          API para integrar modelos de lenguaje avanzados como GPT en tus aplicaciones.
+        </p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- Sección Avanzado -->
+<section id="avanzado" class="hidden py-20 px-4 bg-black/20 transition-all duration-500">
+  <div class="max-w-4xl mx-auto text-center">
+    <h3 class="text-3xl font-bold mb-6 text-purple-400">Recursos Avanzados</h3>
+    <p class="text-gray-300 mb-6">
+      Para profundizar en frameworks, MLOps y creación de modelos personalizados.
+    </p>
+    <ul class="text-lg text-gray-300 space-y-5 text-left mx-auto max-w-md">
+      <li>
+        <a href="https://www.tensorflow.org/" target="_blank" class="text-purple-400 hover:text-purple-300 transition-colors">
+          <i class="fas fa-link mr-2"></i>TensorFlow / PyTorch
+        </a>
+        <p class="text-sm text-gray-400 mt-1">
+          Principales frameworks para construir y entrenar redes neuronales profundas.
+        </p>
+      </li>
+      <li>
+        <a href="https://huggingface.co/" target="_blank" class="text-purple-400 hover:text-purple-300 transition-colors">
+          <i class="fas fa-link mr-2"></i>Hugging Face
+        </a>
+        <p class="text-sm text-gray-400 mt-1">
+          Plataforma colaborativa para usar y compartir modelos preentrenados de NLP y visión.
+        </p>
+      </li>
+      <li>
+        <a href="https://www.docker.com/" target="_blank" class="text-purple-400 hover:text-purple-300 transition-colors">
+          <i class="fas fa-link mr-2"></i>Docker + MLOps
+        </a>
+        <p class="text-sm text-gray-400 mt-1">
+          Conteneriza tus proyectos de IA y gestioná el ciclo de vida de modelos en producción.
+        </p>
+      </li>
+      <li>
+        <a href="#" target="_blank" class="text-purple-400 hover:text-purple-300 transition-colors">
+          <i class="fas fa-link mr-2"></i>Custom Models
+        </a>
+        <p class="text-sm text-gray-400 mt-1">
+          Diseñá y entrená tus propios modelos adaptados a necesidades específicas de negocio.
+        </p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+
+
+<!-- Call to Action -->
+<div class="text-center mt-16 scroll-reveal">
+  <div class="pulse-glow bg-gradient-to-r from-cyan-500/20 to-purple-500/20 p-8 rounded-2xl">
+
+    <!-- Sección Recursos Gratis -->
+    <div class="max-w-4xl mx-auto text-center">
+      <h3 class="text-3xl font-bold mb-6 text-purple-400">Recursos Gratuitos</h3>
+      <p class="text-gray-300 mb-6">
+        Colección de recursos curados para aprender sin costo.
+      </p>
+
+      <ul class="text-lg text-white space-y-5 text-center mx-auto max-w-md">
+        <!-- Curso Stanford -->
+        <li>
+          <a href="https://www.coursera.org/learn/machine-learning" target="_blank"
+             class="transition-colors duration-300 hover:text-purple-400">
+            <i class="fas fa-link mr-2"></i>Curso de Stanford: Machine Learning
+          </a>
+          <p class="text-sm text-gray-400 mt-1">
+            Curso de Andrew Ng que enseña los fundamentos de machine learning y algoritmos clásicos.
+          </p>
+        </li>
+
+        <!-- Kaggle Learn -->
+        <li>
+          <a href="https://www.kaggle.com/learn" target="_blank"
+             class="transition-colors duration-300 hover:text-purple-400">
+            <i class="fas fa-link mr-2"></i>Kaggle Learn: Cursos Prácticos
+          </a>
+          <p class="text-sm text-gray-400 mt-1">
+            Mini-cursos gratuitos y prácticos sobre Python, análisis de datos y ML usando notebooks interactivos.
+          </p>
+        </li>
+
+        <!-- Google Colab -->
+        <li>
+          <a href="https://colab.research.google.com/" target="_blank"
+             class="transition-colors duration-300 hover:text-purple-400">
+            <i class="fas fa-link mr-2"></i>Google Colab: Programación Gratuita
+          </a>
+          <p class="text-sm text-gray-400 mt-1">
+            Entorno online de Google para ejecutar código Python con GPU y sin instalación en tu PC.
+          </p>
+        </li>
+
+        <!-- Hugging Face -->
+        <li>
+          <a href="https://huggingface.co/models" target="_blank"
+             class="transition-colors duration-300 hover:text-purple-400">
+            <i class="fas fa-link mr-2"></i>Hugging Face: Modelos Pre-entrenados
+          </a>
+          <p class="text-sm text-gray-400 mt-1">
+            Plataforma con miles de modelos listos para usar en NLP, visión y audio de código abierto.
+          </p>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- About Section -->
+<section id="about" class="py-24 px-6 bg-black/20">
+  <div class="max-w-5xl mx-auto text-center">
+    <!-- Título -->
+    <h2 class="text-4xl md:text-5xl font-bold mb-10 scroll-reveal">
+      <span class="ai-gradient">Sobre Mí</span>
+    </h2>
+
+    <!-- Cita principal -->
+    <p class="text-2xl text-cyan-400 mb-8 font-semibold italic text-center scroll-reveal">
+      "La curiosidad solo mata al gato"
+    </p>
+
+    <!-- Descripción -->
+    <div class="text-center max-w-3xl mx-auto space-y-6 scroll-reveal">
+      <p class="text-lg md:text-xl text-gray-300 leading-relaxed">
+        Soy <span class="text-cyan-400 font-semibold">mamá</span>, programadora, desarrolladora de 
+        inteligencia artificial, desarrolladora de  videojuegos y aplicaciones, productora musical autodidacta
+         y cantante, y obviamente gamer desde los 8 años — 
+        <span class="text-cyan-400 font-semibold">“en una siempre”</span>.
+      </p>
+
+      <p class="text-lg md:text-xl text-gray-300 leading-relaxed">
+        Actualmente estoy cursando la <span class="text-cyan-400 font-semibold">Tecnicatura en Ciencia de Datos e Inteligencia Artificial</span> y también en <span class="text-cyan-400 font-semibold">Diseño UX/UI</span>, lo que me permite unir la parte técnica con la experiencia del usuario para crear soluciones innovadoras y accesibles.
+      </p>
+
+      <p class="text-lg md:text-xl text-gray-300 leading-relaxed">
+        Mi misión es acercar la tecnología más avanzada a las personas y aplicarla en proyectos con impacto real en la vida cotidiana.
+      </p>
+    </div>
+
+    <!-- Bloque destacado -->
+    <div class="pulse-glow bg-gradient-to-r from-cyan-500/20 to-purple-500/20 p-10 rounded-2xl mt-12 scroll-reveal">
+      <p class="text-lg md:text-xl text-gray-300 italic leading-relaxed">
+        "La inteligencia artificial no solo es el futuro, es el presente.
+         Mi objetivo es conectar diferentes saberes ,como IA, diseño y 
+         creatividad,con mi experiencia previa en otros campos para aportar 
+         soluciones que sumen valor y generen comunidad."
+      </p>
+    </div>
+  </div>
+</section>
+
+
+
+    <!-- Footer -->
+    <footer id="footer" class="py-12 px-4 border-t border-gray-700">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 ai-gradient">IAh!</h3>
+                    <p class="text-gray-400">
+                        Explorando el futuro de la inteligencia artificial de Argentina al mundo.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Enlaces Rápidos</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#home" class="hover:text-cyan-400 transition-colors">Inicio</a></li>
+                        <li><a href="#articles" class="hover:text-cyan-400 transition-colors">Artículos</a></li>
+                        <li><a href="#about" class="hover:text-cyan-400 transition-colors">Acerca</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Sígueme</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.linkedin.com/in/gabriela-coronel-43a0a4286/" target="_blank" 
+                           class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors glow-effect">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://twitter.com/lagabyok" target="_blank" 
+                           class="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center hover:bg-blue-300 transition-colors glow-effect">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://instagram.com/lagabyokey" target="_blank" 
+                           class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center hover:from-purple-400 hover:to-pink-400 transition-all glow-effect">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2025 Gabriela Coronel. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Neural Network Animation
+        function createParticles() {
+            const neuralNetwork = document.getElementById('neuralNetwork');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                neuralNetwork.appendChild(particle);
+            }
+        }
+
+        // Scroll Reveal Animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('revealed');
+                }
+            }
+        }
+
+        // Smooth Scrolling
+        function smoothScroll() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Mobile Menu Toggle
+        function setupMobileMenu() {
+            const menuBtn = document.getElementById('menuBtn');
+            // Mobile menu functionality can be expanded here
+        }
+
+        // Typing Animation Reset
+        function resetTypingAnimation() {
+            const typingElement = document.querySelector('.typing-animation');
+            if (typingElement) {
+                typingElement.style.animation = 'none';
+                setTimeout(() => {
+                    typingElement.style.animation = 'typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite';
+                }, 100);
+            }
+        }
+
+        // Dynamic Glow Effects
+        function addHoverEffects() {
+            const cards = document.querySelectorAll('.card-hover');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Initialize all functions
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            smoothScroll();
+            setupMobileMenu();
+            addHoverEffects();
+            
+            // Initial reveal check
+            revealOnScroll();
+            
+            // Reset typing animation periodically
+            setInterval(resetTypingAnimation, 10000);
+        });
+
+        // Scroll event listener
+        window.addEventListener('scroll', revealOnScroll);
+
+        // Add some interactive elements
+        document.addEventListener('mousemove', function(e) {
+            const particles = document.querySelectorAll('.particle');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            particles.forEach((particle, index) => {
+                const speed = (index + 1) * 0.5;
+                const x = mouseX * speed;
+                const y = mouseY * speed;
+                
+                particle.style.transform += ` translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // Read More Functionality
+        function setupReadMore() {
+            const readMoreBtns = document.querySelectorAll('.read-more-btn');
+            
+            readMoreBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const articleNum = this.getAttribute('data-article');
+                    const content = document.getElementById(`article${articleNum}-content`);
+                    const fullContent = document.getElementById(`article${articleNum}-full`);
+                    const icon = this.querySelector('i');
+                    
+                    if (content.style.display === 'none') {
+                        // Show full content
+                        content.style.display = 'block';
+                        fullContent.style.display = 'block';
+                        this.innerHTML = 'Leer menos <i class="fas fa-arrow-up ml-2"></i>';
+                        
+                        // Smooth scroll to show new content
+                        setTimeout(() => {
+                            fullContent.scrollIntoView({ 
+                                behavior: 'smooth', 
+                                block: 'nearest' 
+                            });
+                        }, 100);
+                    } else {
+                        // Hide full content
+                        content.style.display = 'none';
+                        fullContent.style.display = 'none';
+                        this.innerHTML = 'Leer más <i class="fas fa-arrow-right ml-2"></i>';
+                        
+                        // Scroll back to article title
+                        this.closest('article').scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start' 
+                        });
+                    }
+                });
+            });
+        }
+
+        // Initialize all functions
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            smoothScroll();
+            setupMobileMenu();
+            addHoverEffects();
+            setupReadMore();
+            
+            // Initial reveal check
+            revealOnScroll();
+        });
+    
+    // AgriIA Demo Function
+    function showAgriIADemo() {
+      alert('🚀 Demo AgriIA\n\n📊 Predicción para Campo "San Miguel" - Buenos Aires:\n\n🌾 Cultivo: Soja\n📅 Fecha: Enero 2025\n🎯 Rendimiento Estimado: 3,200 kg/ha\n📈 Confianza: 87%\n🌡️ Condiciones: Óptimas\n💧 Humedad del suelo: 68%\n\n✅ Recomendación: Proceder con la siembra según cronograma planificado.\n\n💡 Esta predicción se basa en:\n- Imágenes satelitales NDVI\n- Datos meteorológicos históricos\n- Análisis de suelo\n- Patrones de cultivos anteriores');
+    }
+    
+    // Animate metrics on scroll
+    function animateMetrics() {
+      const metrics = document.querySelectorAll('.metric-value');
+      metrics.forEach(metric => {
+        const finalValue = metric.textContent;
+        metric.textContent = '0';
+        
+        setTimeout(() => {
+          if (finalValue.includes('$')) {
+            animateValue(metric, 0, parseFloat(finalValue.replace(/[$B]/g, '')), 2000, '$', 'B');
+          } else {
+            animateValue(metric, 0, parseInt(finalValue.replace(/,/g, '')), 2000);
+          }
+        }, 500);
+      });
+    }
+    
+    function animateValue(element, start, end, duration, prefix = '', suffix = '') {
+      const startTime = performance.now();
+      
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        const current = Math.floor(start + (end - start) * progress);
+        element.textContent = prefix + current.toLocaleString() + suffix;
+        
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+      
+      requestAnimationFrame(update);
+    }
+    
+    // Trigger animations when dashboard is visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.target.id === 'reportes') {
+          animateMetrics();
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+    
+    const reportesSection = document.getElementById('reportes');
+    if (reportesSection) {
+      observer.observe(reportesSection);
+    }
+
+
+const toggleBtn = document.getElementById('openDashboardBtn');
+
+toggleBtn.addEventListener('click', function() {
+  const reports = document.getElementById('reports');
+  const dashboard = document.getElementById('dashboardSection');
+
+  if (reports.classList.contains('hidden')) {
+    // Si estoy en el dashboard → volver a las cards
+    reports.classList.remove('hidden');
+    dashboard.classList.add('hidden');
+    toggleBtn.textContent = 'Ver Dashboard';
+    reports.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    // Si estoy en las cards → ir al dashboard
+    reports.classList.add('hidden');
+    dashboard.classList.remove('hidden');
+    toggleBtn.textContent = 'Volver';
+    dashboard.scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+//herramientas
+ document.querySelectorAll('.toggle-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const targetId = button.getAttribute('data-target');
+      const section = document.getElementById(targetId);
+
+      // Alternar visibilidad
+      section.classList.toggle('hidden');
+
+      // Scroll hasta la sección cuando se muestra
+      if (!section.classList.contains('hidden')) {
+        section.scrollIntoView({ behavior: 'smooth' });
+        button.textContent = "Ver Menos";
+      } else {
+        button.textContent = "Ver Más";
+      }
+    });
+  });
+</script>
+
+
+</body>
+</html>
+
+
+
